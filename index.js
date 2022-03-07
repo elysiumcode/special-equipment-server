@@ -5,7 +5,7 @@ const corsMiddleware = require('./middleware/cors.middleware');
 const authRouter = require('./routes/auth.routes')
 const orderRouter = require('./routes/order.routes')
 
-const PORT = config.get('serverPort') || 5000
+const PORT = process.env.PORT || 5000
 
 const app = express();
 
