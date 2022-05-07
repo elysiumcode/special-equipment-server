@@ -11,11 +11,9 @@ class authService {
             const hashPassword = await bcrypt.hash(password, 8)
             const user = await new User({email, password: hashPassword})
             await user.save()
-            console.log('reg', user)
-
             return user
         }
-        else return false
+        return false
     }
 
     async login(email, password) {

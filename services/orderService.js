@@ -9,9 +9,9 @@ class orderService {
     async create(obj, id) {
         const orderObj = {
             ...obj,
-            completed: false,
-            user: id
+            completed: false
         }
+        if(id) orderObj.user = id
         const order = new Order(orderObj)
         await order.save()
 
@@ -26,6 +26,13 @@ class orderService {
     async getOrders(id) {
         if(!id) return Order.find()
         return await Order.find({user: id})
+    }
+
+    async getFilteredOrders({city, machineType}) {
+        if(!city && machineType) return Order.find({machineType})
+        if(city && !machineType) return Order.find({city})
+        if(!city && !machineType) return Order.find()
+        if(city && machineType) return Order.find({machineType, city})
     }
 }
 

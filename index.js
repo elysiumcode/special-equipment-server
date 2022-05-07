@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('config');
 const corsMiddleware = require('./middleware/cors.middleware');
 const authRouter = require('./routes/auth.routes')
 const orderRouter = require('./routes/order.routes')
@@ -21,8 +20,7 @@ async function start() {
       'mongodb+srv://Mrmimka:Falcon1000@cluster0.rxlso.mongodb.net/orders',
       {
         useNewUrlParser: true, 
-        useUnifiedTopology: true, 
-        //serverApi: ServerApiVersion.v1
+        useUnifiedTopology: true,
       }
     )
     app.listen(PORT, () => {

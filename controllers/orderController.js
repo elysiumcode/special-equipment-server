@@ -6,7 +6,8 @@ class OrderController {
             if(!req.body) {
                 return res.status(400).json({message: 'req error'})
             }
-            const order = orderService.create(req.body, req.user.id)
+            console.log(req.user)
+            const order = await orderService.create(req.body, req.user ? req.user.id : undefined)
             return res.json({message: 'order was created', order})
         }
         catch (e) {
@@ -45,7 +46,24 @@ class OrderController {
 
     async getAllOrders(req,  res) {
         try {
+            console.log(req.body)
             const orders = await orderService.getOrders()
+            if(req.user.id) {
+                return res.json(orders)
+            }
+            return res.status(401)
+        }
+        catch (e) {
+            console.log(e)
+            res.send({message: 'server error'})
+        }
+    }
+    
+    async getFilteredOrders(req,  res) {
+        try {
+            console.log(req.query)
+            const orders = await orderService.getFilteredOrders(req.query)
+            console.log(orders)
             if(req.user.id) {
                 return res.json(orders)
             }

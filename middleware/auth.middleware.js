@@ -8,13 +8,13 @@ module.exports = (req, res, next) => {
     }
 
     try {
+        console.log(req.query)
         console.log(req.headers)
         const token = req.headers.authorization.split(' ')[1]
         if(!token) {
             return res.status(411).json({message: 'auth error'})
         }
         user = jwt.verify(token, config.get('secretKey'))
-        console.log(1)
         console.log(token, user)
         req.user = user
         req.token = token
